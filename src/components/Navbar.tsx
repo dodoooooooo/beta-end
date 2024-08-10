@@ -1,11 +1,16 @@
 import React from 'react';
-import { Search, Ring, Down_Arrow } from '@assets';
+import { Search, Ring, Down_Arrow, Menu } from '@assets';
 import { User } from '@constants';
-
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onMenuClick: () => void; // 添加一个用于点击菜单按钮的 props
+}
+const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   return (
     <nav className='flex items-center justify-between p-5 bg-white shadow-md h-[60px]'>
       <div className='flex items-center flex-grow max-w-lg sm:w-auto'>
+        <button className='mr-4 md:hidden' onClick={onMenuClick}>
+          <img src={Menu} className='w-[24px] h-[24px]' alt='Menu' />
+        </button>
         <img src={Search} className='w-[20px] h-[20px] mr-[10px]' />
         <input
           type='text'
