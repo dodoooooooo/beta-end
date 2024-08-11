@@ -8,10 +8,9 @@ interface SidebarProps {
 }
 const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const bind = useDrag((state) => {
-    const [, y] = state.movement;
-    const [, vy] = state.velocity;
-
-    if (state.last && vy > 0.5 && y > 50) {
+    const [x] = state.movement;
+    const [vx] = state.velocity;
+    if (state.last && vx > 0.1 && x < -10) {
       onClose();
     }
   });
