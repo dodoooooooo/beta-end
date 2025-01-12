@@ -19,6 +19,17 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, setCurrentPage }) => {
   });
 
   const [active, setActive] = useState('Dashboard');
+  const [isServicesOpen, setServicesOpen] = useState(false); // 管理 services 子選單的展開
+  const [isModulesOpen, setModulesOpen] = useState(false); // 管理 modules 子選單的展開
+  const [isBootupOpen, setBootupOpen] = useState(false); // 管理 bootup & shutdown 子選單的展開
+  const [isUsersOpen, setUsersOpen] = useState(false); // 管理 users & groups 子選單的展開
+  const [isDiskOpen, setDiskOpen] = useState(false); // 管理 disk management 子選單的展開
+  const [isCronOpen, setCronOpen] = useState(false); // 管理 cron management 子選單的展開
+  const [isSoftwareOpen, setSoftwareOpen] = useState(false); // 管理 software package 子選單的展開
+  const [isServersOpen, setServersOpen] = useState(false); // 管理 servers 子選單的展開
+  const [isUtilsOpen, setUtilsOpen] = useState(false); // 管理 utils 子選單的展開
+  const [isNetworksOpen, setNetworksOpen] = useState(false); // 管理 network 子選單的展開
+  const [isHardwareOpen, setHardwareOpen] = useState(false); // 管理 hardware 子選單的展開
 
   const handlePageChange = (page: string) => {
     setActive(page);
@@ -26,7 +37,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, setCurrentPage }) => {
   };
 
   const style = {
-    navStyle: 'flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 hover:text-white',
+    navStyle: 'flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800 hover:text-white text-left',
     activeStyle: 'bg-gray-700 text-white',
     non_activeStyle: 'text-[#8F95A3]',
   };
@@ -62,11 +73,29 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, setCurrentPage }) => {
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Services' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Services')}
+            onClick={() => {
+              handlePageChange('Services');
+              setServicesOpen(!isServicesOpen); // 點擊 Services 時切換子選單的展開狀態
+            }}
           >
             <CogIcon className='w-5 h-5' />
             <span>Services</span>
+            <span>{isServicesOpen ? '▼' : '▶'}</span>
           </a>
+          {isServicesOpen && (
+            <div className="ml-4 mt-2 space-y-1">
+              {['Backup', 'CHM Logs', 'Language', 'Configuration', 'Subsystem Authentication', 'Refresh Modules'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
+
         </li>
         <li className='mb-2'>
           <a
@@ -82,61 +111,163 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, setCurrentPage }) => {
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Modules Configuration' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Modules Configuration')}
+            onClick={() => {
+              handlePageChange('Modules Configuration');
+              setModulesOpen(!isModulesOpen);
+            }}
           >
             <CubeIcon className='w-5 h-5' />
             <span>Modules Configuration</span>
+            <span>{isModulesOpen ? '▼' : '▶'}</span>
           </a>
+          {isModulesOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['update exist modules'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Bootup & Shutdown' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Bootup & Shutdown')}
+            onClick={() => {
+              handlePageChange('Bootup & Shutdown');
+              setBootupOpen(!isBootupOpen);
+            }}
           >
             <PowerIcon className='w-5 h-5' />
             <span>Bootup & Shutdown</span>
+            <span>{isBootupOpen ? '▼' : '▶'}</span>
           </a>
+          {isBootupOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Process management'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Users & Groups' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Users & Groups')}
+            onClick={() => {
+              handlePageChange('Users & Groups');
+              setUsersOpen(!isUsersOpen); // 點擊 Services 時切換子選單的展開狀態
+            }}
           >
             <UserIcon className='w-5 h-5' />
-            <span>Users & Groupsn</span>
+            <span>Users & Groups</span>
+            <span>{isUsersOpen ? '▼' : '▶'}</span>
           </a>
+          {isUsersOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Users', 'Groups'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Disk Management' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Disk Management')}
+            onClick={() => {
+              handlePageChange('Disk Management');
+              setDiskOpen(!isDiskOpen);
+            }}
           >
             <ServerIcon className='w-5 h-5' />
             <span>Disk Management</span>
+            <span>{isDiskOpen ? '▼' : '▶'}</span>
           </a>
+          {isDiskOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Mount & Unmount', 'Backup', 'Partitions', 'File Upload & Download'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Cron Management' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Cron Management')}
+            onClick={() => {
+              handlePageChange('Cron Management');
+              setCronOpen(!isCronOpen);
+            }}
           >
             <ClockIcon className='w-5 h-5' />
             <span>Cron Management</span>
+            <span>{isCronOpen ? '▼' : '▶'}</span>
           </a>
+          {isCronOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Cron Jobs', 'Scheduled Commands'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Software Package' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Software Package')}
+            onClick={() => {
+              handlePageChange('Software Package');
+              setSoftwareOpen(!isSoftwareOpen);
+            }}
           >
             <ArrowDownTrayIcon className='w-5 h-5' />
             <span>Software Package</span>
+            <span>{isSoftwareOpen ? '▼' : '▶'}</span>
           </a>
+          {isSoftwareOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['APT', 'YUM & DNF', 'Pacman', 'zypper'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
@@ -152,41 +283,109 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose, setCurrentPage }) => {
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Servers' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Servers')}
+            onClick={() => {
+              handlePageChange('Servers');
+              setServersOpen(!isServersOpen);
+            }}
           >
             <ServerStackIcon className='w-5 h-5' />
             <span>Servers</span>
+            <span>{isServersOpen ? '▼' : '▶'}</span>
           </a>
+          {isServersOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Apache', 'BIND DNS', 'DHCP', 'SSH'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Utils' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Utils')}
+            onClick={() => {
+              handlePageChange('Utils');
+              setUtilsOpen(!isUtilsOpen);
+            }}
           >
             <WrenchIcon className='w-5 h-5' />
             <span>Utils</span>
+            <span>{isUtilsOpen ? '▼' : '▶'}</span>
           </a>
+          {isUtilsOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Web Terminal', 'File Manager', 'Upload & Download', 'System & Server Status'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Networks' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Networks')}
+            onClick={() => {
+              handlePageChange('Networks');
+              setNetworksOpen(!isNetworksOpen);
+            }}
           >
             <GlobeAltIcon className='w-5 h-5' />
             <span>Networks</span>
+            <span>{isNetworksOpen ? '▼' : '▶'}</span>
           </a>
+          {isNetworksOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['Firewall', 'Network Configuration'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
         <li className='mb-2'>
           <a
             href='#'
             className={`${style.navStyle} ${active === 'Hardware' ? style.activeStyle : style.non_activeStyle}`}
-            onClick={() => handlePageChange('Hardware')}
+            onClick={() => {
+              handlePageChange('Hardware');
+              setHardwareOpen(!isHardwareOpen);
+            }}
           >
             <CpuChipIcon className='w-5 h-5' />
             <span>Hardware</span>
+            <span>{isHardwareOpen ? '▼' : '▶'}</span>
           </a>
+          {isHardwareOpen && (
+            <div className='ml-4 mt-2 space-y-1'>
+              {['System Time'].map((subPage) => (
+                <button
+                  key={subPage}
+                  className={`${style.navStyle} ${active === subPage ? style.activeStyle : style.non_activeStyle} w-full`}
+                  onClick={() => handlePageChange(subPage)}
+                >
+                  {subPage}
+                </button>
+              ))}
+            </div>
+          )}
         </li>
       </ul>
     </div>
