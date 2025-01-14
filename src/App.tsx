@@ -15,7 +15,7 @@ const App = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} setCurrentPage={setCurrentPage} />
       <div className='flex flex-col flex-1 w-full'>
         <Navbar onMenuClick={toggleSidebar} />
-        <div className='flex-1 p-4 bg-gray-100'>
+        <div className='flex-1 p-4 bg-gray-100 overflow-y-auto'>
           {currentPage === 'Dashboard' && <Dashboard />}
           {currentPage === 'Services' && (
             <div>
