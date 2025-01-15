@@ -106,6 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           </div>
         )}
 
+        {/* 顯示使用者名稱彈出框 */}
         {profileOpen && (
           <div className='absolute right-4 top-14 bg-white bg-opacity-95 border border-gray-200 rounded-lg shadow-lg w-36'>
             <ul>
