@@ -41,14 +41,18 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
 
       {/* 右：通知&個人資料 */}
       <div className='flex items-center space-x-3 sm:space-x-10'>
-      <button onClick={() => setNotificationsOpen(!notificationsOpen)} className="relative">
+        <button onClick={() => {
+        if (profileOpen) {
+          setProfileOpen(false);
+        }
+          setNotificationsOpen(!notificationsOpen)}} className="relative">
           <img src={Ring} className='w-[20px] h-[20px]' />
           {notifications.length > 0 && (
             <span className="absolute top-0 -right-1 text-xs text-white bg-red-500 rounded-full w-3 h-3 flex items-center justify-center">
               {notifications.length}
             </span>
           )}
-        </button>        
+        </button>
         
         <div className='flex items-center'>
           <button
@@ -62,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
 
         {/* 顯示通知彈出框 */}
         {notificationsOpen && (
-          <div className="absolute right-36 top-14 bg-white bg-opacity-95 border border-gray-200 rounded-lg shadow-lg w-48 max-h-64 overflow-y-auto">
+          <div className="absolute right-10 sm:right-36 top-14 bg-white bg-opacity-95 border border-gray-200 rounded-lg shadow-lg w-48 max-h-64 overflow-y-auto">
             <ul>
               {notifications.map((notification, index) => (
                 <React.Fragment key={index}>
